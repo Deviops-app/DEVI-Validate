@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="DeviValidate.Desktop.UpdateWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Check for updates" Icon="Assets/devi.ico" Width="680" Height="720" MinWidth="560" MinHeight="480" WindowStartupLocation="CenterOwner" Style="{StaticResource DeviDialog}" xmlns:theme="clr-namespace:Devi.Theme.Controls;assembly=Devi.Theme" xmlns:desktop="clr-namespace:DeviValidate.Desktop;assembly=DEVI-Validate">
+  <Grid Background="{StaticResource CanvasBrush}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <theme:DeviTitleBar ToolName="Check for updates" ShowMinimize="False" />
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24,20,24,8">
+      <StackPanel>
+        <Border Name="KickerBand" Style="{StaticResource CalloutCard}">
+          <StackPanel>
+            <TextBlock Name="KickerText" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}" />
+            <TextBlock Name="StatusText" TextWrapping="Wrap" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" Margin="0,4,0,0" />
+          </StackPanel>
+        </Border>
+        <UniformGrid Columns="2" Margin="0,12,0,0">
+          <Border Style="{StaticResource StepCard}" Margin="0,0,6,0">
+            <StackPanel>
+              <TextBlock Text="This copy" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource MutedBrush}" />
+              <TextBlock Name="CurrentVersionText" FontSize="20" FontWeight="SemiBold" Margin="0,4,0,0" />
+            </StackPanel>
+          </Border>
+          <Border Style="{StaticResource StepCard}" Margin="6,0,0,0">
+            <StackPanel>
+              <TextBlock Text="Published" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource MutedBrush}" />
+              <TextBlock Name="RemoteVersionText" FontSize="20" FontWeight="SemiBold" Margin="0,4,0,0" />
+              <TextBlock Name="ReleasedText" FontSize="12" Foreground="{StaticResource SecondaryBrush}" Margin="0,4,0,0" />
+            </StackPanel>
+          </Border>
+        </UniformGrid>
+        <TextBlock Name="NotesText" TextWrapping="Wrap" Margin="0,16,0,0" Foreground="{StaticResource SecondaryBrush}" Visibility="Collapsed" />
+        <TextBlock TextWrapping="Wrap" Margin="0,12,0,0" FontSize="12" Foreground="{StaticResource MutedBrush}" Text="Hashing does not use the network. This check asks for one signed version file. If it cannot connect, nothing changes. A download stays on disk only after the SHA-256 matches, and it does not run until you confirm it." />
+        <Border Name="InstallerCard" Style="{StaticResource StepCard}" Margin="0,16,0,0" Visibility="Collapsed">
+          <StackPanel>
+          <TextBlock Text="Installer" FontWeight="SemiBold" />
+          <TextBlock Name="InstallerNameText" Margin="0,4,0,0" TextWrapping="Wrap" />
+          <TextBlock Name="InstallerHashText" Margin="0,4,0,8" FontFamily="{StaticResource MonoFont}" FontSize="12" Foreground="{StaticResource SecondaryBrush}" TextWrapping="Wrap" />
+          <Button Name="DownloadInstallerButton" Content="Download installer" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Visibility="Collapsed" Click="DownloadInstaller_Click" />
+          </StackPanel>
+        </Border>
+        <Border Name="PortableCard" Style="{StaticResource StepCard}" Margin="0,12,0,0" Visibility="Collapsed">
+          <StackPanel>
+          <TextBlock Text="Portable zip" FontWeight="SemiBold" />
+          <TextBlock Name="PortableNameText" Margin="0,4,0,0" TextWrapping="Wrap" />
+          <TextBlock Name="PortableHashText" Margin="0,4,0,8" FontFamily="{StaticResource MonoFont}" FontSize="12" Foreground="{StaticResource SecondaryBrush}" TextWrapping="Wrap" />
+          <Button Name="DownloadPortableButton" Content="Download portable zip" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" Margin="0" Visibility="Collapsed" Click="DownloadPortable_Click" />
+          </StackPanel>
+        </Border>
+        <TextBlock Name="ProgressText" TextWrapping="Wrap" Margin="0,16,0,0" Foreground="{StaticResource SecondaryBrush}" />
+        <Border Name="ReadyBand" Style="{StaticResource CalloutCard}" BorderBrush="{StaticResource WarningBrush}" Margin="0,12,0,0" Visibility="Collapsed">
+          <TextBlock Name="ReadyText" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" />
+        </Border>
+        <WrapPanel Margin="0,16,0,8">
+          <Button Name="StartInstallerButton" Content="Start installer" Style="{StaticResource PrimaryButton}" Visibility="Collapsed" Click="StartInstaller_Click" />
+          <Button Name="ExtractButton" Content="Extract beside this copy" Style="{StaticResource PrimaryButton}" Visibility="Collapsed" Click="Extract_Click" />
+          <Button Name="ShowFileButton" Content="Show file" Style="{StaticResource SecondaryButton}" Visibility="Collapsed" Click="ShowFile_Click" />
+          <Button Name="CancelDownloadButton" Content="Cancel download" Style="{StaticResource SecondaryButton}" Margin="0,0,8,8" Visibility="Collapsed" Click="CancelDownload_Click" />
+        </WrapPanel>
+      </StackPanel>
+    </ScrollViewer>
+    <Border Grid.Row="2" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0" Padding="24,14">
+      <DockPanel LastChildFill="False">
+        <Button DockPanel.Dock="Right" Content="Close" IsCancel="True" Margin="16,0,0,0" Style="{StaticResource SecondaryButton}" Click="Close_Click" />
+        <StackPanel>
+          <CheckBox Name="CheckOnLaunch" Foreground="{StaticResource TextBrush}" Content="Check for updates when the app opens" Checked="CheckOnLaunch_Changed" Unchecked="CheckOnLaunch_Changed" />
+          <TextBlock Text="Off unless you turn it on. A failed check stays quiet and does not affect hashing." Margin="20,4,0,0" FontSize="12" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" />
+        </StackPanel>
+      </DockPanel>
+    </Border>
+  </Grid>
+</Window>

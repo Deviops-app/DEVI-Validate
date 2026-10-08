@@ -1,0 +1,25 @@
+<Project>
+  <PropertyGroup>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
+    <InformationalVersion>1.0.3</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <Authors>The DEVI Validate authors</Authors>
+    <Company>DEVI</Company>
+    <Product>DEVI Validate</Product>
+    <Copyright>Copyright 2026 The DEVI Validate authors</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://deviops.app</RepositoryUrl>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>12</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- Keep compiler warnings visible but non-fatal. -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS1591;CS8600;CS8601;CS8602;CS8603;CS8604;CS8618;CS8625;CS0169;CS0649</NoWarn>
+    <!-- Pin the bundled runtime for self-contained release builds. -->
+    <RuntimeFrameworkVersion Condition="'$(RuntimeIdentifier)' != ''">8.0.31</RuntimeFrameworkVersion>
+  </PropertyGroup>
+</Project>

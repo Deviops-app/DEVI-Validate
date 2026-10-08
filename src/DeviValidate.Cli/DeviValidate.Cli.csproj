@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>DeviValidate.Cli</RootNamespace>
+    <!-- Must never share a folder with DEVI-Validate.exe: Windows file names are case-insensitive.
+         Release layout keeps the CLI in cli\ (see installer/build-release.sh). -->
+    <AssemblyName>devi-validate</AssemblyName>
+    <Description>Evidence hash verification for digital forensic examiners.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeviValidate.Core\DeviValidate.Core.csproj" />
+    <ProjectReference Include="..\..\shared\Devi.Updates\Devi.Updates.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="DeviValidate.Desktop.SettingsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:theme="clr-namespace:Devi.Theme.Controls;assembly=Devi.Theme" Title="DEVI Validate settings" Icon="Assets/devi.ico" Width="680" Height="760" MinWidth="560" MinHeight="520" WindowStartupLocation="CenterOwner" Style="{StaticResource DeviDialog}">
+  <Grid Background="{StaticResource CanvasBrush}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <theme:DeviTitleBar ToolName="Settings" ShowMinimize="False" ShowMaximize="False" />
+    <ScrollViewer Grid.Row="1" Padding="28,20,28,8" VerticalScrollBarVisibility="Auto">
+      <StackPanel>
+        <!-- Shared shell: Examiner profile, then this tool's defaults, then Updates, then Data. -->
+        <Border Style="{StaticResource Settings.Section}">
+          <StackPanel>
+            <TextBlock Text="Examiner profile" Style="{StaticResource Settings.SectionTitle}" />
+            <TextBlock Text="Shared by every DEVI app on this computer. Examiner name and agency fill in Case details on each new run. The case number is never saved." Style="{StaticResource Settings.SectionNote}" />
+            <theme:ExaminerProfileEditor x:Name="ProfileEditor" />
+          </StackPanel>
+        </Border>
+        <Border Style="{StaticResource Settings.Section}">
+          <StackPanel>
+            <TextBlock Text="Validate defaults" Style="{StaticResource Settings.SectionTitle}" />
+            <TextBlock Text="Used for each new run. You can change any of them in Case details." Style="{StaticResource Settings.SectionNote}" />
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="180" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="12" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+              <StackPanel>
+                <TextBlock Text="Validated by" Style="{StaticResource FieldLabel}" />
+                <TextBox Name="DefaultValidatedByBox" Tag="Who checked the tool" AutomationProperties.Name="Default validated by" />
+              </StackPanel>
+              <StackPanel Grid.Column="2">
+                <TextBlock Text="Algorithm" Style="{StaticResource FieldLabel}" />
+                <ComboBox Name="DefaultAlgorithmBox" SelectedIndex="0" AutomationProperties.Name="Default algorithm">
+                  <ComboBoxItem Content="SHA-256" />
+                  <ComboBoxItem Content="SHA-1" />
+                  <ComboBoxItem Content="MD5" />
+                </ComboBox>
+              </StackPanel>
+              <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
+                <TextBlock Text="Lab procedure/reference (expected hash source)" Style="{StaticResource FieldLabel}" />
+                <ComboBox Name="DefaultLabProcedureBox" Style="{StaticResource EditableComboBox}" Tag="Pick where the expected hash usually comes from, or type your own" AutomationProperties.Name="Default lab procedure" SelectionChanged="DefaultLabProcedure_SelectionChanged" />
+              </StackPanel>
+            </Grid>
+          </StackPanel>
+        </Border>
+        <Border Style="{StaticResource Settings.Section}">
+          <StackPanel>
+            <TextBlock Text="Updates" Style="{StaticResource Settings.SectionTitle}" />
+            <TextBlock Text="Updates are signed releases from deviops.app. Nothing is downloaded until you confirm it. Hashing and verification never use the network." Style="{StaticResource Settings.SectionNote}" />
+            <CheckBox Name="CheckOnLaunchBox" Content="Check for updates when the app opens" Foreground="{StaticResource TextBrush}" />
+            <Button Content="Check for updates now" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" Margin="0,12,0,0" Click="CheckNow_Click" />
+          </StackPanel>
+        </Border>
+        <StackPanel Margin="0,0,0,12">
+          <TextBlock Text="Data on this computer" Style="{StaticResource Settings.SectionTitle}" />
+          <TextBlock Name="StorageText" Style="{StaticResource Settings.SectionNote}" />
+          <Button Content="Clear saved profile" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" ToolTip="Delete the saved examiner profile and the Validate defaults from this computer." Click="ClearProfile_Click" />
+        </StackPanel>
+      </StackPanel>
+    </ScrollViewer>
+    <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0" Padding="28,14">
+      <DockPanel LastChildFill="False">
+        <TextBlock Name="SaveStatus" VerticalAlignment="Center" Style="{StaticResource HintText}" />
+        <Button DockPanel.Dock="Right" Content="Save" Style="{StaticResource PrimaryButton}" Margin="0" IsDefault="True" Click="Save_Click" />
+        <Button DockPanel.Dock="Right" Content="Cancel" Style="{StaticResource SecondaryButton}" IsCancel="True" />
+      </DockPanel>
+    </Border>
+  </Grid>
+</Window>

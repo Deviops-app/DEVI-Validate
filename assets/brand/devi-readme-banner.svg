@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240" viewBox="0 0 1200 240" role="img" aria-label="DEVI">
+  <title>DEVI</title>
+  <defs>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4B8DF8"/>
+      <stop offset="1" stop-color="#8B77EE"/>
+    </linearGradient>
+    <clipPath id="round"><rect width="1200" height="240" rx="20"/></clipPath>
+  </defs>
+  <g clip-path="url(#round)">
+    <rect width="1200" height="240" fill="#0A0A0B"/>
+    <rect y="230" width="1200" height="10" fill="url(#accent)"/>
+  </g>
+  <g transform="translate(454.44 80.00) scale(0.297674)">
+    <path d="M0 21.5L190.5 21.5A86 86 0 0 1 190.5 193.5L21.5 193.5L21.5 91" fill="none" stroke="#FFFFFF" stroke-width="43"></path><rect x="334" y="0" width="232" height="43" fill="#FFFFFF"></rect><rect x="334" y="86" width="232" height="43" fill="#FFFFFF"></rect><rect x="334" y="172" width="232" height="43" fill="#FFFFFF"></rect><polygon points="598,0 649,0 752,159 855,0 906,0 766.7,215 737.3,215" fill="#FFFFFF"></polygon><rect x="935" y="0" width="43" height="215" fill="#FFFFFF"></rect>
+  </g>
+</svg>

@@ -1,0 +1,40 @@
+<UserControl x:Class="Devi.Theme.Controls.ExaminerProfileEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Focusable="False">
+  <!-- The shared examiner profile fields. The same five fields, in the same order, in every DEVI app's Settings. -->
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="12" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="12" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="12" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <StackPanel>
+      <TextBlock Text="Examiner name" Style="{StaticResource FieldLabel}" />
+      <TextBox x:Name="ExaminerNameBox" Tag="Name as it appears on records" AutomationProperties.Name="Examiner name" />
+    </StackPanel>
+    <StackPanel Grid.Column="2">
+      <TextBlock Text="Agency or department" Style="{StaticResource FieldLabel}" />
+      <TextBox x:Name="AgencyBox" Tag="Agency or department" AutomationProperties.Name="Agency or department" />
+    </StackPanel>
+    <StackPanel Grid.Row="2">
+      <TextBlock Text="Unit (optional)" Style="{StaticResource FieldLabel}" />
+      <TextBox x:Name="UnitBox" Tag="Unit or team" AutomationProperties.Name="Unit" />
+    </StackPanel>
+    <StackPanel Grid.Row="2" Grid.Column="2">
+      <TextBlock Text="Title, badge, or ID (optional)" Style="{StaticResource FieldLabel}" />
+      <TextBox x:Name="TitleBox" Tag="Title, badge, or ID" AutomationProperties.Name="Title, badge, or ID" />
+    </StackPanel>
+    <StackPanel Grid.Row="4">
+      <TextBlock Text="Email or phone (optional)" Style="{StaticResource FieldLabel}" />
+      <TextBox x:Name="ContactBox" Tag="Email or phone" AutomationProperties.Name="Email or phone" />
+    </StackPanel>
+  </Grid>
+</UserControl>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="DeviValidate.Desktop.PackageWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:theme="clr-namespace:Devi.Theme.Controls;assembly=Devi.Theme" Title="Create validation package" Icon="Assets/devi.ico" Width="760" Height="780" MinWidth="620" MinHeight="560" WindowStartupLocation="CenterOwner" Style="{StaticResource DeviDialog}">
+  <Grid Background="{StaticResource CanvasBrush}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <theme:DeviTitleBar ToolName="Validation package" ShowMinimize="False" />
+    <ScrollViewer Grid.Row="1" Padding="{StaticResource PagePadding}" VerticalScrollBarVisibility="Auto">
+      <StackPanel>
+        <theme:DeviPageHeader Eyebrow="COURT-READY EXPORT" Title="Create a validation package" Lead="One folder and .zip: PDF, JSON record, manifest of SHA-256 hashes, and a verification code." />
+        <Border Style="{StaticResource Card}" Margin="0,0,0,12">
+          <StackPanel>
+            <TextBlock Text="Record" Style="{StaticResource Text.Heading}" />
+            <TextBlock Name="VerdictText" Style="{StaticResource Text.Body}" TextWrapping="Wrap" Margin="0,6,0,10" />
+            <Grid Name="FieldsGrid">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="170" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+            </Grid>
+            <Border Name="CaseWarning" Style="{StaticResource InsetBox}" Background="{StaticResource WarningSoftBrush}" BorderBrush="{StaticResource WarningBrush}" Margin="0,10,0,0" Visibility="Collapsed">
+              <TextBlock TextWrapping="Wrap" Style="{StaticResource Text.Small}" Foreground="{StaticResource TextBrush}" Text="Examiner or case reference was blank when you pressed Verify. Those details are part of the signed record, so close this window, fill in Case details, and verify again to include them." />
+            </Border>
+          </StackPanel>
+        </Border>
+        <Border Style="{StaticResource Card}" Margin="0,0,0,12">
+          <StackPanel>
+            <TextBlock Text="Signature" Style="{StaticResource Text.Heading}" />
+            <TextBlock Style="{StaticResource Text.Secondary}" TextWrapping="Wrap" Margin="0,4,0,10" Text="Sign with your certificate (for example an agency PIV or CAC card, or a document-signing certificate) to embed a signature in the PDF and add a CMS signature over the manifest. Without a certificate the package is hash-sealed only, and it says so." />
+            <TextBlock Text="Certificate" Style="{StaticResource FieldLabel}" />
+            <ComboBox Name="CertificateBox" DisplayMemberPath="Label" SelectedIndex="0" />
+            <TextBlock Name="CertificateHint" Style="{StaticResource Text.Small}" TextWrapping="Wrap" Margin="0,6,0,0" />
+          </StackPanel>
+        </Border>
+        <Border Style="{StaticResource Card}" Margin="0,0,0,12">
+          <StackPanel>
+            <TextBlock Text="Save to" Style="{StaticResource Text.Heading}" />
+            <TextBlock Style="{StaticResource Text.Secondary}" TextWrapping="Wrap" Margin="0,4,0,10" Text="The package must be saved outside the evidence location." />
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <TextBox Name="FolderBox" IsReadOnly="True" FontFamily="{StaticResource MonoFont}" />
+              <Button Grid.Column="1" Content="Choose folder" Style="{StaticResource SecondaryButton}" Margin="8,0,0,0" Click="ChooseFolder_Click" />
+            </Grid>
+          </StackPanel>
+        </Border>
+        <Border Name="ResultCard" Style="{StaticResource CalloutCard}" Visibility="Collapsed">
+          <StackPanel>
+            <TextBlock Text="VERIFICATION CODE" Style="{StaticResource Text.Eyebrow}" />
+            <TextBlock Name="CodeText" Style="{StaticResource Text.Display}" FontFamily="{StaticResource MonoFont}" Margin="0,4,0,6" />
+            <TextBlock Name="ResultText" Style="{StaticResource Text.Secondary}" TextWrapping="Wrap" />
+            <TextBlock Name="ResultPath" Style="{StaticResource Text.Mono}" TextWrapping="Wrap" Margin="0,8,0,10" />
+            <StackPanel Orientation="Horizontal">
+              <Button Content="Open folder" Style="{StaticResource SecondaryButton}" Click="OpenFolder_Click" />
+              <Button Content="Copy code" Style="{StaticResource GhostButton}" Click="CopyCode_Click" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+      </StackPanel>
+    </ScrollViewer>
+    <Border Grid.Row="2" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="{StaticResource HairlineTop}" Padding="24,12">
+      <DockPanel LastChildFill="True">
+        <Button DockPanel.Dock="Right" Content="_Close" IsCancel="True" Style="{StaticResource SecondaryButton}" Margin="8,0,0,0" Click="Close_Click" />
+        <Button Name="CreateButton" DockPanel.Dock="Right" Content="Create _package" IsDefault="True" Style="{StaticResource PrimaryButton}" Margin="8,0,0,0" Click="Create_Click" />
+        <TextBlock Name="StatusText" VerticalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource Text.Small}" />
+      </DockPanel>
+    </Border>
+  </Grid>
+</Window>
