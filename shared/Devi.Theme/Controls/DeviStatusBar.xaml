@@ -1,0 +1,19 @@
+<UserControl x:Class="Devi.Theme.Controls.DeviStatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Focusable="False">
+  <!-- Footer strip on every DEVI main window: the offline statement on the left, a fact on the right. -->
+  <Border Background="{StaticResource CanvasBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="{StaticResource HairlineTop}"
+          MinHeight="{StaticResource StatusBarHeight}" Padding="16,6">
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <Path Width="13" Height="13" Style="{StaticResource LineIcon}" Data="{StaticResource IconShield}" Stroke="{StaticResource MutedBrush}" Margin="0,0,8,0" />
+      <TextBlock x:Name="LeftTextBlock" Grid.Column="1" Style="{StaticResource Text.Caption}" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+      <TextBlock x:Name="RightTextBlock" Grid.Column="2" Style="{StaticResource Text.Eyebrow}" VerticalAlignment="Center" Margin="16,0,0,0" />
+    </Grid>
+  </Border>
+</UserControl>

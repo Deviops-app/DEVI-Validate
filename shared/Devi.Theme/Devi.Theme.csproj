@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <RootNamespace>Devi.Theme</RootNamespace>
+    <AssemblyName>Devi.Theme</AssemblyName>
+    <Description>DEVI design system for the Windows tools: color tokens, type, control styles, and window chrome.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets\devi-wordmark-white.png" />
+  </ItemGroup>
+</Project>

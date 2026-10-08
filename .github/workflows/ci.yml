@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    name: Build and test (Windows)
+    runs-on: windows-latest
+    timeout-minutes: 30
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      DOTNET_NOLOGO: "1"
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore DeviValidate.sln
+
+      - name: Build
+        run: dotnet build DeviValidate.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test DeviValidate.sln --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --results-directory test-results
+
+      - name: Command line smoke test
+        shell: pwsh
+        run: |
+          dotnet publish src/DeviValidate.Cli/DeviValidate.Cli.csproj -c Release -o publish/cli
+          ./publish/cli/devi-validate.exe --version
+          New-Item -ItemType Directory -Path smoke/evidence, smoke/reports | Out-Null
+          Set-Content -Path smoke/evidence/abc.txt -Value 'abc' -NoNewline
+          $expected = (Get-FileHash smoke/evidence/abc.txt -Algorithm SHA256).Hash.ToLowerInvariant()
+          ./publish/cli/devi-validate.exe verify smoke/evidence/abc.txt --hash $expected --output-dir smoke/reports --quiet
+          if ($LASTEXITCODE -ne 0) { throw "verify exited $LASTEXITCODE" }
+          ./publish/cli/devi-validate.exe selftest --output-dir smoke/reports
+          if ($LASTEXITCODE -ne 0) { throw "selftest exited $LASTEXITCODE" }
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: test-results
+          path: test-results
+          retention-days: 14

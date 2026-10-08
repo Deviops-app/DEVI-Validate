@@ -1,0 +1,16 @@
+DEVI Validate 1.0.3
+
+Unzip this whole folder, then open app\DEVI-Validate.exe.
+The command-line tool is cli\devi-validate.exe (run it from a terminal).
+
+Keep app\ and cli\ as separate folders. On Windows, devi-validate.exe and
+DEVI-Validate.exe are the same file name, so they must never be copied into
+one folder.
+
+If the app reports an error, details are saved under
+%LocalAppData%\DEVI\Validate\logs. Send that file to contact@deviops.app.
+
+Hashing and verification do not use the network.
+Check for updates is optional. Nothing is installed unless you confirm it.
+The app, the command-line tool, and the installer are Authenticode-signed.
+Windows SmartScreen can still warn for a newly signed release.

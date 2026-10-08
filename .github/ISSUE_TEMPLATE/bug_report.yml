@@ -1,0 +1,69 @@
+name: Bug report
+description: Something in DEVI Validate does not work the way it should.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report this.
+
+        **Do not attach real evidence, case material, screenshots of case data, or personal data.** A synthetic file or a description of the input is enough.
+        Security problems should be reported privately. See SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: DEVI Validate version
+      description: From the About window, or `devi-validate --version`.
+      placeholder: "1.0.3"
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where did it happen?
+      options:
+        - Windows app
+        - Command line
+        - Installer or portable zip
+        - PDF, HTML, or JSON record
+        - Update check
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Windows 11 23H2"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Choose a folder with ...
+        2. Add an expected hash file that ...
+        3. Press Verify
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log lines
+      description: Relevant lines from %LocalAppData%\DEVI\Validate\logs. Remove any case numbers, names, or paths that identify a case.
+      render: text
+  - type: checkboxes
+    id: no-case-data
+    attributes:
+      label: Before you submit
+      options:
+        - label: This report contains no real evidence, case material, or personal data.
+          required: true
