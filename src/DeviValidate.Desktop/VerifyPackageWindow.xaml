@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="DeviValidate.Desktop.VerifyPackageWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:theme="clr-namespace:Devi.Theme.Controls;assembly=Devi.Theme" Title="Verify a validation package" Icon="Assets/devi.ico" Width="820" Height="780" MinWidth="640" MinHeight="560" WindowStartupLocation="CenterOwner" Style="{StaticResource DeviDialog}" AllowDrop="True" Drop="Window_Drop" DragOver="Window_DragOver">
+  <Grid Background="{StaticResource CanvasBrush}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <theme:DeviTitleBar ToolName="Verify a package" ShowMinimize="False" />
+    <Grid Grid.Row="1" Margin="{StaticResource PagePadding}">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <theme:DeviPageHeader Eyebrow="OFFLINE RE-VERIFICATION" Title="Verify a validation package" Lead="Recompute every hash in a package and check its code and signature. Nothing leaves this computer." />
+      <Border Grid.Row="1" Style="{StaticResource Card}" Margin="0,0,0,12">
+        <StackPanel>
+          <TextBlock Text="Package" Style="{StaticResource FieldLabel}" />
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox Name="PathBox" FontFamily="{StaticResource MonoFont}" ToolTip="A package folder, its .zip, or its package-manifest.json. You can also drop it on this window." />
+            <Button Grid.Column="1" Content="Choose folder" Style="{StaticResource SecondaryButton}" Margin="8,0,0,0" Click="ChooseFolder_Click" />
+            <Button Grid.Column="2" Content="Choose .zip" Style="{StaticResource SecondaryButton}" Margin="8,0,0,0" Click="ChooseZip_Click" />
+          </Grid>
+          <TextBlock Text="Verification code from the printed PDF or QR code (optional)" Style="{StaticResource FieldLabel}" Margin="0,12,0,4" />
+          <TextBox Name="CodeBox" FontFamily="{StaticResource MonoFont}" ToolTip="DV1-XXXX-XXXX-XXXX-XXXX-XXXX, the full 64-character record SHA-256, or the QR code text." />
+          <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+            <Button Name="VerifyButton" Content="_Verify package" IsDefault="True" Style="{StaticResource PrimaryButton}" Click="Verify_Click" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+      <Border Name="VerdictBand" Grid.Row="2" Style="{StaticResource CalloutCard}" Margin="0,0,0,12" Visibility="Collapsed">
+        <StackPanel>
+          <TextBlock Name="VerdictKicker" Style="{StaticResource Text.Eyebrow}" />
+          <TextBlock Name="VerdictText" Style="{StaticResource Text.Title}" TextWrapping="Wrap" Margin="0,4,0,0" />
+          <TextBlock Name="VerdictDetail" Style="{StaticResource Text.Secondary}" TextWrapping="Wrap" Margin="0,4,0,0" />
+        </StackPanel>
+      </Border>
+      <Border Grid.Row="3" Style="{StaticResource Card}" Padding="0">
+        <Grid>
+        <TextBlock Name="EmptyHint" Style="{StaticResource Text.Secondary}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Margin="24" Text="Drop a package folder or .zip on this window, or choose one above. Each check appears here with Pass, Fail, Review, or Note." />
+        <ListBox Name="ChecksList" BorderThickness="0" Background="{StaticResource ClearBrush}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid Margin="4,6">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="92" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Chip}" Background="{Binding PillBackground}" VerticalAlignment="Top">
+                  <TextBlock Text="{Binding Outcome}" Style="{StaticResource Text.Caption}" FontWeight="SemiBold" Foreground="{Binding PillForeground}" />
+                </Border>
+                <StackPanel Grid.Column="1">
+                  <TextBlock Text="{Binding Name}" Style="{StaticResource Text.Body}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                  <TextBlock Text="{Binding Detail}" Style="{StaticResource Text.Small}" TextWrapping="Wrap" Margin="0,2,0,0" />
+                </StackPanel>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+        </Grid>
+      </Border>
+    </Grid>
+    <theme:DeviStatusBar Grid.Row="2" x:Name="StatusBar" LeftText="Offline. The package is read, never changed. A .zip is unpacked to a temporary folder and removed afterwards." />
+  </Grid>
+</Window>

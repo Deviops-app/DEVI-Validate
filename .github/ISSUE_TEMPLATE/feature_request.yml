@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest an improvement or a new input format for DEVI Validate.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe the problem you are trying to solve in your casework. Do not include real evidence, case material, or personal data.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: What are you trying to do, and what gets in the way today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like DEVI Validate to do?
+    validations:
+      required: true
+  - type: textarea
+    id: format
+    attributes:
+      label: Hash report or log format (if this is about a new input)
+      description: Name the tool and version that wrote it, and paste a short synthetic sample. Do not paste a real report.
+      render: text
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Anything else?
+      description: Workarounds you use today, or how other tools handle this.

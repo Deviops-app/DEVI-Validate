@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="DeviValidate.Desktop.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:DeviValidate.Desktop" xmlns:reporting="clr-namespace:DeviValidate.Core.Reporting;assembly=DeviValidate.Core" xmlns:theme="clr-namespace:Devi.Theme.Controls;assembly=Devi.Theme" Title="DEVI Validate" Icon="Assets/devi.ico" Width="1200" Height="860" MinWidth="880" MinHeight="520" WindowStartupLocation="Manual" Style="{StaticResource DeviWindow}">
+  <FrameworkElement.Resources>
+    <ResourceDictionary>
+      <local:ResultPillBackgroundConverter x:Key="ResultPillBackground" />
+      <local:ResultPillForegroundConverter x:Key="ResultPillForeground" />
+    </ResourceDictionary>
+  </FrameworkElement.Resources>
+  <Grid Background="{StaticResource CanvasBrush}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <theme:DeviTitleBar x:Name="TitleBar" ToolName="Validate" />
+    <ScrollViewer Name="MainScroll" Grid.Row="1" Padding="{StaticResource PagePadding}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" SizeChanged="MainScroll_SizeChanged">
+      <Grid Name="MainContent">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <theme:DeviPageHeader Eyebrow="DEVI VALIDATE  /  HASH VERIFICATION" Title="Independent hash verification" Lead="Recompute a hash and compare it with the one another tool recorded.">
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            <Button Name="MoreButton" Style="{StaticResource HeaderIconButton}" ToolTip="More: verify a package, self-test, updates, About" AutomationProperties.Name="More actions" Click="More_Click">
+              <Path Style="{StaticResource HeaderIconDots}" Data="{StaticResource IconMore}" />
+              <Button.ContextMenu>
+                <ContextMenu Name="MoreMenu" Style="{StaticResource DeviMenu}" ItemContainerStyle="{StaticResource DeviMenuItem}">
+                  <MenuItem Header="Verify a pac_kage..." ToolTip="Re-check a validation package offline: file hashes, verification code, and signature." Click="VerifyPackage_Click" />
+                  <MenuItem Name="SelfTestMenuItem" Header="Run _self-test..." ToolTip="Hash published test vectors and write a tool validation record." Click="SelfTest_Click" />
+                  <MenuItem Header="Check for _updates..." Click="CheckUpdates_Click" />
+                  <MenuItem Header="_About DEVI Validate" Click="About_Click" />
+                </ContextMenu>
+              </Button.ContextMenu>
+            </Button>
+            <Button Name="HelpButton" Style="{StaticResource HeaderIconButton}" ToolTip="How to verify (F1)" AutomationProperties.Name="How to verify" AutomationProperties.HelpText="Opens the instructions" Click="HowTo_Click">
+              <Path Style="{StaticResource HeaderIcon}" Data="{StaticResource IconHelp}" />
+            </Button>
+            <Button Name="SettingsButton" Style="{StaticResource HeaderIconButton}" ToolTip="Settings (Ctrl+,)" AutomationProperties.Name="Settings" Click="Settings_Click">
+              <Path Style="{StaticResource HeaderIcon}" Data="{StaticResource IconSettings}" />
+            </Button>
+          </StackPanel>
+        </theme:DeviPageHeader>
+        <Expander Name="CaseExpander" Grid.Row="1" Margin="0,0,0,12" IsExpanded="True" Style="{StaticResource SectionExpander}" AutomationProperties.Name="Step 1. Case details">
+          <HeaderedContentControl.Header>
+            <StackPanel Orientation="Horizontal">
+              <Border Style="{StaticResource StepBadge}">
+                <TextBlock Text="1" Style="{StaticResource StepBadgeText}" />
+              </Border>
+              <TextBlock Text="Case details" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource Text.Heading}" />
+              <TextBlock Name="CaseSummary" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="12" Foreground="{StaticResource MutedBrush}" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+          </HeaderedContentControl.Header>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="12" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="12" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="12" />
+              <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Examiner" Style="{StaticResource FieldLabel}" />
+                <TextBlock Style="{StaticResource RequiredMark}" />
+              </StackPanel>
+              <TextBox Name="ExaminerBox" Tag="Name" AutomationProperties.Name="Examiner, required" AutomationProperties.IsRequiredForForm="True" TextChanged="CaseField_TextChanged" LostFocus="CaseField_LostFocus" />
+              <TextBlock Name="ExaminerError" Text="Enter the examiner's name." Style="{StaticResource FieldError}" />
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+              <TextBlock Text="Agency or department" Style="{StaticResource FieldLabel}" />
+              <TextBox Name="AgencyBox" Tag="Optional" AutomationProperties.Name="Agency or department" TextChanged="CaseField_TextChanged" />
+            </StackPanel>
+            <StackPanel Grid.Column="4">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Case number" Style="{StaticResource FieldLabel}" />
+                <TextBlock Style="{StaticResource RequiredMark}" />
+              </StackPanel>
+              <TextBox Name="CaseBox" Tag="Case number or reference" AutomationProperties.Name="Case number, required" AutomationProperties.IsRequiredForForm="True" TextChanged="CaseField_TextChanged" LostFocus="CaseField_LostFocus" />
+              <TextBlock Name="CaseError" Text="Enter the case number or reference." Style="{StaticResource FieldError}" />
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+              <TextBlock Text="Validated by" Style="{StaticResource FieldLabel}" />
+              <TextBox Name="ValidatedByBox" Tag="Optional" AutomationProperties.Name="Validated by" ToolTip="Who checked the tool. Blank prints Not recorded." />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="2">
+              <TextBlock Text="Validation date" Style="{StaticResource FieldLabel}" />
+              <DatePicker Name="ValidationDateBox" AutomationProperties.Name="Validation date" ToolTip="Today by default. Records store it as YYYY-MM-DD." />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="4">
+              <TextBlock Text="Lab procedure/reference" Style="{StaticResource FieldLabel}" />
+              <ComboBox Name="LabProcedureBox" Style="{StaticResource EditableComboBox}" Tag="Expected hash source, optional" AutomationProperties.Name="Lab procedure or expected hash source" ToolTip="Where the expected hash came from. Pick a source or type your own. Blank prints Not recorded." SelectionChanged="LabProcedure_SelectionChanged" />
+            </StackPanel>
+          </Grid>
+        </Expander>
+        <Grid Grid.Row="2" Margin="0,0,0,12">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="12" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid Name="EvidenceZone" AllowDrop="True" Background="{StaticResource ClearBrush}" Focusable="True" FocusVisualStyle="{x:Null}" DragOver="Evidence_DragOver" DragLeave="Evidence_DragLeave" Drop="Evidence_Drop" MouseEnter="Evidence_MouseEnter" MouseLeave="Evidence_MouseLeave" PreviewKeyDown="Evidence_PreviewKeyDown" AutomationProperties.Name="Step 2. Evidence">
+            <Rectangle Name="EvidenceDash" RadiusX="12" RadiusY="12" Stroke="{StaticResource BorderBrush}" StrokeThickness="1" Fill="{StaticResource CardBrush}" IsHitTestVisible="False" />
+            <StackPanel Margin="16,14">
+              <StackPanel Orientation="Horizontal" Height="32">
+                <Border Style="{StaticResource StepBadge}">
+                  <TextBlock Text="2" Style="{StaticResource StepBadgeText}" />
+                </Border>
+                <TextBlock Text="Evidence" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource Text.Heading}" />
+              </StackPanel>
+              <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Path Name="EvidenceGlyph" Style="{StaticResource LineIcon}" Data="{StaticResource IconFile}" Stroke="{StaticResource MutedBrush}" />
+                <TextBlock Name="EvidenceText" Text="Drop the file or folder the first hash describes" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource SecondaryBrush}" TextWrapping="Wrap" />
+              </StackPanel>
+              <TextBlock Name="EvidenceMeta" Margin="30,4,0,0" Foreground="{StaticResource MutedBrush}" FontSize="12" Visibility="Collapsed" />
+              <ItemsControl Name="EvidenceChips" Margin="0,10,0,0" Visibility="Collapsed">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <WrapPanel />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border Margin="0,0,6,6" Padding="8,0,2,0" VerticalAlignment="Center" Background="{StaticResource CardAltBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="{StaticResource RadiusChip}" ToolTip="{Binding ToolTip}" AutomationProperties.Name="{Binding ChipName}">
+                      <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Foreground="{StaticResource TextBrush}" FontSize="12" MaxWidth="200" TextTrimming="CharacterEllipsis" />
+                        <Button Width="22" Height="22" Margin="2,0,0,0" Style="{StaticResource IconButton}" Tag="{Binding Path}" ToolTip="Remove this item" AutomationProperties.Name="{Binding RemoveName}" Click="EvidenceChipRemove_Click">
+                          <Path Width="9" Height="9" Style="{StaticResource LineIcon}" Data="{StaticResource IconCaptionClose}" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" IsHitTestVisible="False" />
+                        </Button>
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+              <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                <Button Name="EvidenceFileButton" Content="Choose file" Style="{StaticResource SecondaryButton}" Click="ChooseEvidenceFile_Click" />
+                <Button Name="EvidenceFolderButton" Content="Choose folder" Style="{StaticResource SecondaryButton}" Margin="0" Click="ChooseEvidenceFolder_Click" />
+              </StackPanel>
+            </StackPanel>
+          </Grid>
+          <Grid Name="ExpectedZone" Column="2" AllowDrop="True" Background="{StaticResource ClearBrush}" DragOver="Expected_DragOver" DragLeave="Expected_DragLeave" Drop="Expected_Drop" MouseEnter="Expected_MouseEnter" MouseLeave="Expected_MouseLeave" AutomationProperties.Name="Step 3. Expected hashes">
+            <Rectangle Name="ExpectedDash" RadiusX="12" RadiusY="12" Stroke="{StaticResource BorderBrush}" StrokeThickness="1" Fill="{StaticResource CardBrush}" IsHitTestVisible="False" />
+            <StackPanel Margin="16,14">
+              <DockPanel Height="32" LastChildFill="False">
+                <Border Style="{StaticResource StepBadge}">
+                  <TextBlock Text="3" Style="{StaticResource StepBadgeText}" />
+                </Border>
+                <TextBlock Text="Expected hashes" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource Text.Heading}" />
+                <ComboBox Name="AlgorithmBox" DockPanel.Dock="Right" Width="112" MinHeight="32" SelectedIndex="0" ToolTip="Algorithm on the other tool's report. A list or log sets it for you." AutomationProperties.Name="Algorithm">
+                  <ComboBoxItem Content="SHA-256" />
+                  <ComboBoxItem Content="SHA-1" />
+                  <ComboBoxItem Content="MD5" />
+                </ComboBox>
+              </DockPanel>
+              <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Path Name="ExpectedGlyph" Style="{StaticResource LineIcon}" Data="{StaticResource IconList}" Stroke="{StaticResource MutedBrush}" />
+                <TextBlock Name="ExpectedText" Text="Drop the log, sum file, CSV, or JSON from the other tool" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource SecondaryBrush}" TextWrapping="Wrap" />
+              </StackPanel>
+              <TextBlock Name="ExpectedMeta" Margin="30,4,0,0" Foreground="{StaticResource MutedBrush}" FontSize="12" Visibility="Collapsed" />
+              <DockPanel Margin="0,12,0,0">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Top">
+                  <Button Name="ExpectedFileButton" Content="Choose file" Style="{StaticResource SecondaryButton}" Click="ChooseExpected_Click" />
+                  <Button Name="ExpectedFolderButton" Content="Choose folder" Style="{StaticResource SecondaryButton}" Margin="8,0,8,0" Click="ChooseExpectedFolder_Click" />
+                </StackPanel>
+                <theme:FieldRing Name="ExpectedHashChrome" MinHeight="36" Background="{StaticResource SurfaceBrush}" PreviewKeyDown="ExpectedHash_PreviewKeyDown" AutomationProperties.Name="Expected hash">
+                  <DockPanel LastChildFill="True">
+                    <ItemsControl Name="ExpectedFileChips" DockPanel.Dock="Top" Margin="6,4,6,0" Visibility="Collapsed">
+                      <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                          <WrapPanel />
+                        </ItemsPanelTemplate>
+                      </ItemsControl.ItemsPanel>
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                          <Border Margin="0,0,6,4" Padding="8,0,2,0" VerticalAlignment="Center" Background="{StaticResource CardAltBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="{StaticResource RadiusChip}" ToolTip="{Binding ToolTip}" AutomationProperties.Name="{Binding ChipName}">
+                            <StackPanel Orientation="Horizontal">
+                              <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Foreground="{StaticResource TextBrush}" FontSize="12" MaxWidth="200" TextTrimming="CharacterEllipsis" />
+                              <Button Width="22" Height="22" Margin="2,0,0,0" Style="{StaticResource IconButton}" Tag="{Binding Path}" ToolTip="Remove this expected hash" AutomationProperties.Name="{Binding RemoveName}" Click="ExpectedChipRemove_Click">
+                                <Path Width="9" Height="9" Style="{StaticResource LineIcon}" Data="{StaticResource IconCaptionClose}" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" IsHitTestVisible="False" />
+                              </Button>
+                            </StackPanel>
+                          </Border>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Grid MinHeight="32">
+                      <TextBox Name="PastedHashBox" Style="{StaticResource BareTextBox}" Padding="12,0" VerticalContentAlignment="Center" AutomationProperties.Name="Pasted expected hash" ToolTip="Paste a hash or a hash list. Chosen hash files stay in the field." TextChanged="PastedHash_TextChanged" GotKeyboardFocus="PastedHash_FocusChanged" LostKeyboardFocus="PastedHash_FocusChanged" />
+                      <TextBlock Name="ExpectedHashHint" Text="Or paste hashes" Margin="12,0" VerticalAlignment="Center" IsHitTestVisible="False" Foreground="{StaticResource MutedBrush}" />
+                    </Grid>
+                  </DockPanel>
+                </theme:FieldRing>
+              </DockPanel>
+            </StackPanel>
+          </Grid>
+        </Grid>
+        <Grid Name="ActionArea" Grid.Row="3" Margin="0,0,0,10" Background="{StaticResource ClearBrush}" PreviewMouseLeftButtonDown="ActionArea_PreviewMouseLeftButtonDown">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Border Style="{StaticResource StepBadge}" Margin="0,0,10,0">
+              <TextBlock Text="4" Style="{StaticResource StepBadgeText}" />
+            </Border>
+            <Button Name="VerifyButton" Content="_Verify" Style="{StaticResource PrimaryButton}" ToolTipService.ShowOnDisabled="True" ToolTip="Hash the evidence and compare it with the expected hash from step 3." Click="Verify_Click" />
+            <Button Name="HashButton" Content="_Hash only" Style="{StaticResource QuietButton}" ToolTipService.ShowOnDisabled="True" ToolTip="Compute a new hash without comparing it. This is not a verification." Click="Hash_Click" />
+          </StackPanel>
+          <StackPanel Name="CaseHintPanel" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+            <TextBlock Name="CaseHintText" Text="Add the examiner and case number in Case details to continue." VerticalAlignment="Center" FontSize="13" Foreground="{StaticResource WarningBrush}" TextWrapping="Wrap" />
+            <Button Content="Go to Case details" Style="{StaticResource LinkButton}" Margin="10,0,0,0" VerticalAlignment="Center" Click="GoToCaseDetails_Click" />
+          </StackPanel>
+          <Button Name="CancelButton" Grid.Column="2" Content="_Cancel" Style="{StaticResource SecondaryButton}" VerticalAlignment="Center" Margin="0" IsEnabled="False" Visibility="Collapsed" Click="Cancel_Click" />
+        </Grid>
+        <StackPanel Grid.Row="4" Margin="0,0,0,10">
+          <ProgressBar Name="HashProgress" Minimum="0" Maximum="1" Height="6" Margin="0,0,0,6" Visibility="Collapsed" />
+          <TextBlock Name="StatusText" Foreground="{StaticResource MutedBrush}" FontSize="13" TextWrapping="Wrap" Text="Read-only. Hashing does not use the network." />
+          <StackPanel Name="ExportSavedPanel" Visibility="Collapsed" Margin="0,8,0,0">
+            <TextBlock Text="Saved report" FontSize="12" Foreground="{StaticResource MutedBrush}" />
+            <TextBlock Name="ExportPathText" TextWrapping="Wrap" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" Margin="0,2,0,6" />
+            <StackPanel Orientation="Horizontal">
+              <Button Content="Open file" Style="{StaticResource SecondaryButton}" ToolTip="Open the report that was just saved." Click="OpenExportedFile_Click" />
+              <Button Content="Open folder" Style="{StaticResource SecondaryButton}" Margin="0" ToolTip="Open the folder that contains the saved report." Click="OpenExportedFolder_Click" />
+            </StackPanel>
+          </StackPanel>
+        </StackPanel>
+        <Border Name="VerdictBand" Grid.Row="5" Style="{StaticResource CalloutCard}" Margin="0,0,0,12">
+          <StackPanel>
+            <TextBlock Name="VerdictKicker" Text="No verification yet" Foreground="{StaticResource MutedBrush}" FontSize="12" FontWeight="SemiBold" />
+            <TextBlock Name="VerdictText" Text="Fill in Case details, add the evidence and the expected hash, then press Verify." TextWrapping="Wrap" FontSize="16" FontWeight="SemiBold" Margin="0,2,0,0" Foreground="{StaticResource TextBrush}" />
+            <TextBlock Name="VerdictMeaning" TextWrapping="Wrap" Margin="0,8,0,0" FontSize="13" Visibility="Collapsed" />
+          </StackPanel>
+        </Border>
+        <UniformGrid Name="CountsGrid" Grid.Row="6" Columns="4" Margin="0,0,0,12" Visibility="Collapsed">
+          <Border Name="MatchChip" Style="{StaticResource StepCard}" Margin="0,0,8,0">
+            <StackPanel>
+              <TextBlock Name="MatchCountText" Text="0" FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource SuccessBrush}" />
+              <TextBlock Name="MatchChipLabel" Text="Match" FontSize="12" Foreground="{StaticResource SecondaryBrush}" />
+            </StackPanel>
+          </Border>
+          <Border Name="MismatchChip" Style="{StaticResource StepCard}" Margin="0,0,8,0">
+            <StackPanel>
+              <TextBlock Name="MismatchCountText" Text="0" FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource DangerBrush}" />
+              <TextBlock Name="MismatchChipLabel" Text="Mismatch" FontSize="12" Foreground="{StaticResource SecondaryBrush}" />
+            </StackPanel>
+          </Border>
+          <Border Name="MissingChip" Style="{StaticResource StepCard}" Margin="0,0,8,0">
+            <StackPanel>
+              <TextBlock Name="MissingCountText" Text="0" FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource WarningBrush}" />
+              <TextBlock Name="MissingChipLabel" Text="Missing" FontSize="12" Foreground="{StaticResource SecondaryBrush}" />
+            </StackPanel>
+          </Border>
+          <Border Style="{StaticResource StepCard}">
+            <StackPanel>
+              <TextBlock Name="ExtraCountText" Text="0" FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource SecondaryBrush}" />
+              <TextBlock Name="ExtraChipLabel" Text="Extra" FontSize="12" Foreground="{StaticResource SecondaryBrush}" />
+            </StackPanel>
+          </Border>
+        </UniformGrid>
+        <DockPanel Grid.Row="7" Margin="0,0,0,6" LastChildFill="False">
+          <TextBlock Text="Results" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" />
+          <ComboBox Name="StatusFilter" Width="160" Margin="12,0,0,0" SelectedIndex="0" ToolTip="Filter the table by status" SelectionChanged="StatusFilter_SelectionChanged">
+            <ComboBoxItem Content="All" />
+            <ComboBoxItem Content="Match" />
+            <ComboBoxItem Content="Mismatch" />
+            <ComboBoxItem Content="Missing" />
+            <ComboBoxItem Content="Extra" />
+            <ComboBoxItem Content="Hashed" />
+            <ComboBoxItem Content="Pass" />
+            <ComboBoxItem Content="Fail" />
+          </ComboBox>
+        </DockPanel>
+        <DataGrid Name="ResultsGrid" Grid.Row="8" MinHeight="96">
+          <DataGrid.Columns>
+            <DataGridTemplateColumn Header="Result" Width="120" MinWidth="96">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Border CornerRadius="10" Padding="8,3" HorizontalAlignment="Left" Margin="12,0" Background="{Binding Result, Converter={StaticResource ResultPillBackground}}">
+                    <TextBlock FontSize="12" FontWeight="SemiBold" Text="{Binding Result}" Foreground="{Binding Result, Converter={StaticResource ResultPillForeground}}" />
+                  </Border>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Path" Width="2*" MinWidth="160">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock Margin="12,0" TextTrimming="CharacterEllipsis" Foreground="{StaticResource TextBrush}" Text="{Binding Path}" ToolTip="{Binding Path}" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="Size" Width="120" MinWidth="88" Binding="{Binding Size}">
+              <DataGridBoundColumn.ElementStyle>
+                <Style TargetType="{x:Type TextBlock}">
+                  <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+                  <Setter Property="Margin" Value="12,0,0,0" />
+                  <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+              </DataGridBoundColumn.ElementStyle>
+            </DataGridTextColumn>
+            <DataGridTemplateColumn Header="Computed hash" Width="2*" MinWidth="180">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <DockPanel Margin="12,0" LastChildFill="True">
+                    <Button DockPanel.Dock="Right" Content="Copy" Style="{StaticResource GhostButton}" Margin="8,0,0,0" ToolTip="Copy the computed hash" Click="CopyHash_Click" />
+                    <TextBlock FontFamily="{StaticResource MonoFont}" FontSize="12" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Foreground="{StaticResource TextBrush}" Text="{Binding ComputedHash}" ToolTip="{Binding ComputedHash}" />
+                  </DockPanel>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Expected hash" Width="2*" MinWidth="160">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock Margin="12,0" FontFamily="{StaticResource MonoFont}" FontSize="12" TextTrimming="CharacterEllipsis" Foreground="{StaticResource TextBrush}" Text="{Binding ExpectedHash}" ToolTip="{Binding ExpectedHash}" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+          </DataGrid.Columns>
+        </DataGrid>
+        <Expander Name="ExportsExpander" Grid.Row="9" Margin="0,12,0,0" IsExpanded="False" Style="{StaticResource SectionExpander}" AutomationProperties.Name="Exports and tools">
+          <HeaderedContentControl.Header>
+            <TextBlock Text="Exports and tools" VerticalAlignment="Center" Style="{StaticResource Text.Heading}" />
+          </HeaderedContentControl.Header>
+          <WrapPanel>
+            <Button Name="ExportPdfButton" Content="Export _PDF" Style="{StaticResource SecondaryButton}" Margin="0,0,8,8" IsEnabled="False" Click="ExportPdf_Click" />
+            <Button Name="PackageButton" Content="Validation pac_kage" Style="{StaticResource SecondaryButton}" Margin="0,0,8,8" IsEnabled="False" ToolTip="Court-ready export: PDF and JSON record, SHA-256 manifest, verification code and QR code, optional signature with your certificate." Click="Package_Click" />
+            <Button Name="ExportHtmlButton" Content="Export H_TML" Style="{StaticResource SecondaryButton}" Margin="0,0,8,8" IsEnabled="False" Click="ExportHtml_Click" />
+            <Button Name="ExportJsonButton" Content="Export _JSON" Style="{StaticResource SecondaryButton}" Margin="0,0,8,8" IsEnabled="False" Click="ExportJson_Click" />
+            <Button Name="ClearButton" Content="Start _new" Style="{StaticResource SecondaryButton}" Margin="0,0,8,8" ToolTip="Clear the evidence, expected hashes, results, and case number. Profile details fill back in." Click="Clear_Click" />
+          </WrapPanel>
+        </Expander>
+      </Grid>
+    </ScrollViewer>
+    <theme:DeviStatusBar x:Name="StatusBar" Grid.Row="2" LeftText="Offline. Evidence is opened read-only. A mismatch only means the two hashes are not the same." />
+  </Grid>
+</Window>

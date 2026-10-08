@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Entry point for the DEVI design system. Each app merges only this dictionary:
+  <ResourceDictionary Source="pack://application:,,,/Devi.Theme;component/Themes/Devi.xaml" />
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Tokens.xaml" />
+    <ResourceDictionary Source="Typography.xaml" />
+    <ResourceDictionary Source="Icons.xaml" />
+    <ResourceDictionary Source="Controls.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

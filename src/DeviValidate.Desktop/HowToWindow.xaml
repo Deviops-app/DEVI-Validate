@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="DeviValidate.Desktop.HowToWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:reporting="clr-namespace:DeviValidate.Core.Reporting;assembly=DeviValidate.Core" Title="How to verify a hash" Icon="Assets/devi.ico" Width="820" Height="720" MinWidth="640" MinHeight="480" WindowStartupLocation="CenterOwner" Style="{StaticResource DeviDialog}" xmlns:theme="clr-namespace:Devi.Theme.Controls;assembly=Devi.Theme" xmlns:desktop="clr-namespace:DeviValidate.Desktop;assembly=DEVI-Validate">
+  <Grid Background="{StaticResource CanvasBrush}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <theme:DeviTitleBar ToolName="How to verify a hash" ShowMinimize="False" />
+    <ScrollViewer Grid.Row="1" Padding="24,20,24,16" VerticalScrollBarVisibility="Auto">
+      <StackPanel>
+        <TextBlock Text="For examiners, prosecutors, and defense" Style="{StaticResource Text.Title}" TextWrapping="Wrap" />
+        <TextBlock Text="{x:Static reporting:VerificationGuide.Banner}" TextWrapping="Wrap" Margin="0,8,0,16" Foreground="{StaticResource SecondaryBrush}" />
+        <StackPanel Name="Sections" />
+      </StackPanel>
+    </ScrollViewer>
+    <Border Grid.Row="2" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0" Padding="16,12">
+      <DockPanel LastChildFill="False">
+        <Button DockPanel.Dock="Right" Content="_Close" IsCancel="True" Style="{StaticResource SecondaryButton}" Margin="0" Click="Close_Click" />
+        <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,16,0" Foreground="{StaticResource MutedBrush}" Text="The verification record prints the same comparison rules under What you do to verify." />
+      </DockPanel>
+    </Border>
+  </Grid>
+</Window>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Devi.Updates</RootNamespace>
+    <AssemblyName>Devi.Updates</AssemblyName>
+    <Description>Signed update feed client shared by the DEVI Windows apps.</Description>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Directory.Build.props removes System.Net.Http; this library needs it. -->
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="System.Net.Http" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  DEVI type for the Windows tools. Mirrors the site's system stack: Segoe UI on Windows,
+  Inter where Segoe UI is not installed. Mono labels mirror the site's "evidence tag" eyebrows.
+  Weights stay at Normal, Medium, and SemiBold. Sizes come only from this file.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Tokens.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <FontFamily x:Key="SansFont">Segoe UI Variable Text, Segoe UI, Inter, Arial</FontFamily>
+  <FontFamily x:Key="DisplayFont">Segoe UI Variable Display, Segoe UI, Inter, Arial</FontFamily>
+  <FontFamily x:Key="MonoFont">Cascadia Mono, Consolas, JetBrains Mono, Courier New</FontFamily>
+  <FontFamily x:Key="IconFont">Segoe Fluent Icons, Segoe MDL2 Assets</FontFamily>
+
+  <sys:Double x:Key="FontSizeDisplay">26</sys:Double>
+  <sys:Double x:Key="FontSizeTitle">20</sys:Double>
+  <sys:Double x:Key="FontSizeHeading">15</sys:Double>
+  <sys:Double x:Key="FontSizeBody">14</sys:Double>
+  <sys:Double x:Key="FontSizeSmall">13</sys:Double>
+  <sys:Double x:Key="FontSizeCaption">12</sys:Double>
+  <sys:Double x:Key="FontSizeEyebrow">11</sys:Double>
+  <sys:Double x:Key="FontSizeMono">12</sys:Double>
+  <sys:Double x:Key="FontSizeStat">20</sys:Double>
+
+  <!-- Page title. White-to-gray fill, the same treatment as the site's hero heading. -->
+  <Style x:Key="Text.Display" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeDisplay}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{StaticResource HeadingGradientBrush}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+  </Style>
+
+  <!-- Dialog title and section heading. Same fill at lower contrast. -->
+  <Style x:Key="Text.Title" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeTitle}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{StaticResource SectionGradientBrush}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <Style x:Key="Text.Heading" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource SansFont}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeHeading}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <Style x:Key="Text.Body" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource SansFont}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeBody}" />
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <Style x:Key="Text.Secondary" TargetType="TextBlock" BasedOn="{StaticResource Text.Body}">
+    <Setter Property="Foreground" Value="{StaticResource SecondaryBrush}" />
+  </Style>
+
+  <Style x:Key="Text.Small" TargetType="TextBlock" BasedOn="{StaticResource Text.Body}">
+    <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+    <Setter Property="Foreground" Value="{StaticResource SecondaryBrush}" />
+  </Style>
+
+  <Style x:Key="Text.Caption" TargetType="TextBlock" BasedOn="{StaticResource Text.Body}">
+    <Setter Property="FontSize" Value="{StaticResource FontSizeCaption}" />
+    <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+  </Style>
+
+  <!-- Mono uppercase label above a section, like the site's eyebrow. Write the text in capitals. -->
+  <Style x:Key="Text.Eyebrow" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource MonoFont}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeEyebrow}" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+  </Style>
+
+  <Style x:Key="Text.Mono" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource MonoFont}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeMono}" />
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+  </Style>
+
+  <Style x:Key="Text.Stat" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource DisplayFont}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeStat}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+  </Style>
+
+  <Style x:Key="Text.Link" TargetType="TextBlock" BasedOn="{StaticResource Text.Body}">
+    <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+
+  <!-- Form label. Kept for existing windows: FieldLabel and HintText. -->
+  <Style x:Key="FieldLabel" TargetType="TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource SecondaryBrush}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeCaption}" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="Margin" Value="0,0,0,6" />
+  </Style>
+  <Style x:Key="HintText" TargetType="TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+</ResourceDictionary>

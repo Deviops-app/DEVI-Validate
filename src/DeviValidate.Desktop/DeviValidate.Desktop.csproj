@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <RootNamespace>DeviValidate.Desktop</RootNamespace>
+    <AssemblyName>DEVI-Validate</AssemblyName>
+    <Description>Windows desktop evidence hash verification.</Description>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\devi.ico</ApplicationIcon>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets\devi.ico" />
+    <Resource Include="Assets\devi.png" />
+    <Resource Include="Assets\devi-wordmark-white.png" />
+    <!-- Loose copy beside DEVI-Validate.exe for the installer shortcuts and Explorer.
+         Must stay a None item from a different path. A Content item for Assets\devi.ico adds
+         [AssemblyAssociatedContentFile("assets/devi.ico")], so WPF resolves every Icon="Assets/devi.ico"
+         to a loose file that is not shipped and MainWindow fails to load (0.1.3).
+         installer/check-layout.py fails the build if that attribute comes back. -->
+    <None Include="..\..\assets\brand\devi.ico" Link="devi-validate.ico" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeviValidate.Core\DeviValidate.Core.csproj" />
+    <ProjectReference Include="..\..\shared\Devi.Theme\Devi.Theme.csproj" />
+    <ProjectReference Include="..\..\shared\Devi.Updates\Devi.Updates.csproj" />
+  </ItemGroup>
+</Project>

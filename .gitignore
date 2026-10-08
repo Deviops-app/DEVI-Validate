@@ -1,0 +1,25 @@
+# Build output
+bin/
+obj/
+out/
+publish/
+test-results/
+TestResults/
+*.trx
+
+# Editors and tools
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.swp
+.DS_Store
+Thumbs.db
+
+# Release staging and signing scratch files (never commit keys)
+*.pfx
+*.p12
+*.pem
+*.key
+*.snk

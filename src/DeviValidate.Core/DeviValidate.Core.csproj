@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>DeviValidate.Core</RootNamespace>
+    <AssemblyName>DeviValidate.Core</AssemblyName>
+    <Description>Cross-platform, read-only evidence hash verification.</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="PDFsharp" Version="6.2.1" />
+    <PackageReference Include="QRCoder" Version="1.6.0" />
+    <InternalsVisibleTo Include="DeviValidate.Core.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DeviValidate.Core.Reporting.Brand.devi-wordmark-white.svg" LogicalName="DeviValidate.Core.Reporting.Brand.devi-wordmark-white.svg" />
+    <EmbeddedResource Include="DeviValidate.Core.Reporting.Brand.devi-wordmark-dark.png" LogicalName="DeviValidate.Core.Reporting.Brand.devi-wordmark-dark.png" />
+    <EmbeddedResource Include="DeviValidate.Core.Reporting.Brand.devi-d-dark.png" LogicalName="DeviValidate.Core.Reporting.Brand.devi-d-dark.png" />
+    <EmbeddedResource Include="..\..\shared\Devi.Brand\devi-wordmark-white.png" LogicalName="DeviValidate.Core.Reporting.Brand.devi-wordmark-white.png" Link="Brand\devi-wordmark-white.png" />
+    <EmbeddedResource Include="..\..\shared\Devi.Brand\devi-wordmark-compact-white.png" LogicalName="DeviValidate.Core.Reporting.Brand.devi-wordmark-compact-white.png" Link="Brand\devi-wordmark-compact-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\shared\Devi.Brand\DeviPdfPalette.cs" Link="DeviValidate.Core.Reporting\DeviPdfPalette.cs" />
+  </ItemGroup>
+</Project>

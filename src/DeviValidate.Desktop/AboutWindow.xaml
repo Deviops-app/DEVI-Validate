@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="DeviValidate.Desktop.AboutWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="About DEVI Validate" Icon="Assets/devi.ico" Width="520" WindowStartupLocation="CenterOwner" Style="{StaticResource DeviFixedDialog}" xmlns:theme="clr-namespace:Devi.Theme.Controls;assembly=Devi.Theme" xmlns:desktop="clr-namespace:DeviValidate.Desktop;assembly=DEVI-Validate">
+  <Border Style="{StaticResource WindowFrame}">
+    <DockPanel>
+      <theme:DeviTitleBar DockPanel.Dock="Top" ToolName="About" ShowMinimize="False" ShowMaximize="False" />
+      <StackPanel Margin="24,20,24,24">
+        <Image Source="Assets/devi-wordmark-white.png" Height="28" Stretch="Uniform" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" />
+        <TextBlock Text="Validate" Margin="0,6,0,0" Style="{StaticResource Text.Title}" />
+        <TextBlock Name="VersionText" Foreground="{StaticResource MutedBrush}" Margin="0,4,0,0" />
+        <TextBlock TextWrapping="Wrap" Margin="0,16,0,0" Foreground="{StaticResource TextBrush}" Text="This record independently recomputes hash values and compares them with values recorded by another tool or process." />
+        <TextBlock TextWrapping="Wrap" Margin="0,12,0,0" Foreground="{StaticResource SecondaryBrush}" Text="DEVI Validate is an independent, third-party tool. It re-checks hash values reported by an acquisition or analysis tool, using a separate open-source implementation." />
+        <TextBlock Margin="0,12,0,0" Foreground="{StaticResource AccentBrush}" Text="https://deviops.app" />
+        <TextBlock TextWrapping="Wrap" Margin="0,12,0,0" Foreground="{StaticResource MutedBrush}" Text="The tool opens evidence read-only. Hashing and verification do not use the network and do not call a cloud service. Check for updates is separate, and it runs only when you ask. The tool does not certify a laboratory, a method, or a case." />
+        <TextBlock Text="Copyright 2026 The DEVI Validate authors" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,16,0,0" />
+        <DockPanel Margin="0,12,0,0" LastChildFill="False">
+          <Button DockPanel.Dock="Right" Content="Close" IsCancel="True" Margin="0" Style="{StaticResource SecondaryButton}" Click="Close_Click" />
+          <Button Content="Check for updates" Style="{StaticResource SecondaryButton}" Click="CheckUpdates_Click" />
+        </DockPanel>
+      </StackPanel>
+    </DockPanel>
+  </Border>
+</Window>

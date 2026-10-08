@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/Deviops-app/DEVI-Validate/security/advisories/new
+    about: Please report security problems privately, not in a public issue. You can also email admin@deviops.app.
+  - name: DEVI website
+    url: https://deviops.app
+    about: Downloads, release notes, and the other DEVI tools.
