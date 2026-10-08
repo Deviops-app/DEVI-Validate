@@ -19,7 +19,7 @@
 
 DEVI Validate re-checks the hash values that an acquisition or analysis tool reported for your evidence. It reads the evidence again with its own open-source code, compares the result with the values the other tool wrote down, and saves a verification record as HTML, PDF, and JSON. Anyone can repeat the check with standard tools.
 
-DEVI Validate is part of **DEVI**, a set of free tools built by experienced digital forensic examiners for examiners. It does not carry a court, standards-body, or laboratory certification. Each lab or agency should validate it under its own procedures before relying on it in casework. [docs/VALIDATION-CHECKLIST.md](docs/VALIDATION-CHECKLIST.md) is a checklist for doing that.
+DEVI Validate is part of **DEVI**, a set of open-source tools built by experienced digital forensic examiners for examiners. It does not carry a court, standards-body, or laboratory certification. Each lab or agency should validate it under its own procedures before relying on it in casework. [docs/VALIDATION-CHECKLIST.md](docs/VALIDATION-CHECKLIST.md) is a checklist for doing that.
 
 ## What it does
 
